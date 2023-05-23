@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BMS.WebHost.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -108,8 +108,7 @@ namespace BMS.WebHost.Migrations
                     MiddleName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     UCN = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false),
-                    HospitalId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Gender = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -214,10 +213,10 @@ namespace BMS.WebHost.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BornIn = table.Column<string>(type: "nvarchar(90)", maxLength: 90, nullable: false),
                     BornAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BloodTypeId = table.Column<int>(type: "int", nullable: false),
+                    BloodTypeId = table.Column<int>(type: "int", nullable: true),
                     IsTakingSpecialMedication = table.Column<bool>(type: "bit", nullable: false),
                     EmergencyNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    HospitalId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    HospitalId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -232,13 +231,13 @@ namespace BMS.WebHost.Migrations
                         name: "FK_Patients_BloodType_BloodTypeId",
                         column: x => x.BloodTypeId,
                         principalTable: "BloodType",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Patients_Hospitals_HospitalId",
+                        column: x => x.HospitalId,
+                        principalTable: "Hospitals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Patients_Hospitals_HospitalId1",
-                        column: x => x.HospitalId1,
-                        principalTable: "Hospitals",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -265,7 +264,7 @@ namespace BMS.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    HospitalId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    HospitalId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -277,10 +276,11 @@ namespace BMS.WebHost.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Workers_Hospitals_HospitalId1",
-                        column: x => x.HospitalId1,
+                        name: "FK_Workers_Hospitals_HospitalId",
+                        column: x => x.HospitalId,
                         principalTable: "Hospitals",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -288,12 +288,11 @@ namespace BMS.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    BloodTypeId = table.Column<int>(type: "int", nullable: false),
-                    DonorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RecipientId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    HospitalId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false),
-                    HospitalId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    BloodTypeId = table.Column<int>(type: "int", nullable: true),
+                    DonorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    RecipientId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    HospitalId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Amount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -302,16 +301,10 @@ namespace BMS.WebHost.Migrations
                         name: "FK_BloodDonations_BloodType_BloodTypeId",
                         column: x => x.BloodTypeId,
                         principalTable: "BloodType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_BloodDonations_Hospitals_HospitalId",
                         column: x => x.HospitalId,
-                        principalTable: "Hospitals",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_BloodDonations_Hospitals_HospitalId1",
-                        column: x => x.HospitalId1,
                         principalTable: "Hospitals",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -396,11 +389,6 @@ namespace BMS.WebHost.Migrations
                 column: "HospitalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BloodDonations_HospitalId1",
-                table: "BloodDonations",
-                column: "HospitalId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BloodDonations_RecipientId",
                 table: "BloodDonations",
                 column: "RecipientId");
@@ -411,9 +399,9 @@ namespace BMS.WebHost.Migrations
                 column: "BloodTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Patients_HospitalId1",
+                name: "IX_Patients_HospitalId",
                 table: "Patients",
-                column: "HospitalId1");
+                column: "HospitalId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_AccountId",
@@ -421,9 +409,9 @@ namespace BMS.WebHost.Migrations
                 column: "AccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Workers_HospitalId1",
+                name: "IX_Workers_HospitalId",
                 table: "Workers",
-                column: "HospitalId1");
+                column: "HospitalId");
         }
 
         /// <inheritdoc />

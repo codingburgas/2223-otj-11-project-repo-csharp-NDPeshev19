@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BMS.WebHost.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230522214734_InitMigration")]
-    partial class InitMigration
+    [Migration("20230523210906_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,22 +54,16 @@ namespace BMS.WebHost.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("BloodTypeId")
+                    b.Property<int?>("BloodTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("DonorId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("HospitalId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("HospitalId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RecipientId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -79,8 +73,6 @@ namespace BMS.WebHost.Migrations
                     b.HasIndex("DonorId");
 
                     b.HasIndex("HospitalId");
-
-                    b.HasIndex("HospitalId1");
 
                     b.HasIndex("RecipientId");
 
@@ -386,10 +378,6 @@ namespace BMS.WebHost.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
-                    b.Property<string>("HospitalId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -415,7 +403,7 @@ namespace BMS.WebHost.Migrations
                 {
                     b.HasBaseType("BMS.Data.Models.Auth.Account");
 
-                    b.Property<int>("BloodTypeId")
+                    b.Property<int?>("BloodTypeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("BornAt")
@@ -430,7 +418,7 @@ namespace BMS.WebHost.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<string>("HospitalId1")
+                    b.Property<string>("HospitalId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsTakingSpecialMedication")
@@ -440,8 +428,6 @@ namespace BMS.WebHost.Migrations
 
                     b.HasIndex("HospitalId");
 
-                    b.HasIndex("HospitalId1");
-
                     b.ToTable("Patients", (string)null);
                 });
 
@@ -449,12 +435,10 @@ namespace BMS.WebHost.Migrations
                 {
                     b.HasBaseType("BMS.Data.Models.Auth.Account");
 
-                    b.Property<string>("HospitalId1")
+                    b.Property<string>("HospitalId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasIndex("HospitalId");
-
-                    b.HasIndex("HospitalId1");
 
                     b.ToTable("Workers", (string)null);
                 });
@@ -472,31 +456,22 @@ namespace BMS.WebHost.Migrations
                 {
                     b.HasOne("BMS.Data.Models.Misc.BloodType", "BloodType")
                         .WithMany()
-                        .HasForeignKey("BloodTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BloodTypeId");
 
                     b.HasOne("BMS.Data.Models.Auth.Patient", "Donor")
                         .WithMany()
                         .HasForeignKey("DonorId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("BMS.Data.Models.Hospital.Hospital", "Hospital")
-                        .WithMany()
-                        .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("BMS.Data.Models.Hospital.Hospital", null)
                         .WithMany("BloodDonations")
-                        .HasForeignKey("HospitalId1");
+                        .HasForeignKey("HospitalId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("BMS.Data.Models.Auth.Patient", "Recipient")
                         .WithMany()
                         .HasForeignKey("RecipientId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("BloodType");
 
@@ -571,19 +546,12 @@ namespace BMS.WebHost.Migrations
                 {
                     b.HasOne("BMS.Data.Models.Misc.BloodType", "BloodType")
                         .WithMany()
-                        .HasForeignKey("BloodTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BMS.Data.Models.Hospital.Hospital", null)
-                        .WithMany("Patients")
-                        .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BloodTypeId");
 
                     b.HasOne("BMS.Data.Models.Hospital.Hospital", "Hospital")
-                        .WithMany()
-                        .HasForeignKey("HospitalId1");
+                        .WithMany("Patients")
+                        .HasForeignKey("HospitalId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("BMS.Data.Models.Auth.Account", null)
                         .WithOne()
@@ -598,15 +566,10 @@ namespace BMS.WebHost.Migrations
 
             modelBuilder.Entity("BMS.Data.Models.Auth.Worker", b =>
                 {
-                    b.HasOne("BMS.Data.Models.Hospital.Hospital", null)
+                    b.HasOne("BMS.Data.Models.Hospital.Hospital", "Hospital")
                         .WithMany("Workers")
                         .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BMS.Data.Models.Hospital.Hospital", "Hospital")
-                        .WithMany()
-                        .HasForeignKey("HospitalId1");
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("BMS.Data.Models.Auth.Account", null)
                         .WithOne()

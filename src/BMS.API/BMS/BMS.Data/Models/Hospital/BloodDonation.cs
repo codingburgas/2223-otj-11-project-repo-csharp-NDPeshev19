@@ -17,16 +17,12 @@ public class BloodDonation
     [Required]
     public string? Id { get; set; }
 
-    [Required]
     public BloodType? BloodType { get; set; }
 
-    [Required]
     public string? DonorId { get; set; }
 
-    [Required]
     public string? RecipientId { get; set; }
 
-    [Required]
     public string? HospitalId { get; set; }
     
     /// <summary>
@@ -35,15 +31,12 @@ public class BloodDonation
     [Required]
     public int Amount { get; set; }
 
-    [Required]
     [ForeignKey(nameof(DonorId))]
     public Patient? Donor { get; set; }
 
-    [Required]
     [ForeignKey(nameof(RecipientId))]
     public Patient? Recipient { get; set; }
 
-    [Required]
     [ForeignKey(nameof(HospitalId))]
     public Hospital? Hospital { get; set; }
 }

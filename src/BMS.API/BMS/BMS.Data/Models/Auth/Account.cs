@@ -56,13 +56,4 @@ public abstract class Account : IdentityUser
     [MinLength(9, ErrorMessage = "Phone number is too short.")]
     [ProtectedPersonalData]
     new public string? PhoneNumber { get; set; }
-
-    [Required]
-    public string? HospitalId { get; set; }
-
-    /// <summary>
-    /// Denotes the <see cref="Hospital"/> that the account belongs to.
-    /// </summary>    
-    [ForeignKey(nameof(HospitalId))]
-    public Hospital.Hospital? Hospital { get; set; }
 }

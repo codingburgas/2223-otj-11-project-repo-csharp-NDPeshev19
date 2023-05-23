@@ -18,7 +18,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Worker> Workers { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
 
-    // Normal data
+    //// Normal data
     public DbSet<Hospital> Hospitals { get; set; }
     public DbSet<BloodDonation> BloodDonations { get; set; }
 
@@ -42,24 +42,36 @@ public class ApplicationDbContext : IdentityDbContext
             .Property(p => p.BornAt)
             .HasConversion<DateOnlyConverter, DateOnlyComparer>();
 
+        builder.Entity<Patient>()
+            .HasOne(p => p.Hospital)
+            .WithMany(h => h.Patients)
+            .HasForeignKey(p => p.HospitalId)
+            .OnDelete(DeleteBehavior.NoAction);
+
         builder.Entity<Worker>()
             .ToTable("Workers");
 
+        builder.Entity<Worker>()
+            .HasOne(w => w.Hospital)
+            .WithMany(h => h.Workers)
+            .HasForeignKey(w => w.HospitalId)
+            .OnDelete(DeleteBehavior.NoAction);
+
         builder.Entity<Hospital>()
             .HasMany(h => h.Workers)
-            .WithOne()
+            .WithOne(w => w.Hospital)
             .HasForeignKey(w => w.HospitalId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.Entity<Hospital>()
             .HasMany(h => h.Patients)
-            .WithOne()
+            .WithOne(p => p.Hospital)
             .HasForeignKey(p => p.HospitalId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.Entity<Hospital>()
             .HasMany(h => h.BloodDonations)
-            .WithOne()
+            .WithOne(bd => bd.Hospital)
             .HasForeignKey(bd => bd.HospitalId)
             .OnDelete(DeleteBehavior.Cascade);
 
@@ -77,7 +89,7 @@ public class ApplicationDbContext : IdentityDbContext
 
         builder.Entity<BloodDonation>()
             .HasOne(bd => bd.Hospital)
-            .WithMany()
+            .WithMany(h => h.BloodDonations)
             .HasForeignKey(bd => bd.HospitalId)
             .OnDelete(DeleteBehavior.NoAction);
 

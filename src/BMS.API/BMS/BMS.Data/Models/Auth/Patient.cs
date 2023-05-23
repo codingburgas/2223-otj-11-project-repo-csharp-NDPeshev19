@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Identity;
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BMS.Data.Models.Auth;
 
@@ -22,7 +23,6 @@ public class Patient : Account
     // FIXME: This will error on encoding to json. Write custom parser.
     public DateOnly BornAt { get; set; }
 
-    [Required]
     public BloodType? BloodType { get; set; }
 
     [Required]
@@ -32,4 +32,12 @@ public class Patient : Account
     [MinLength(9, ErrorMessage = "Phone number is too short.")]
     [ProtectedPersonalData]
     public string? EmergencyNumber { get; set; }
+
+    public string? HospitalId { get; set; }
+
+    /// <summary>
+    /// Denotes the <see cref="Hospital"/> that the account belongs to.
+    /// </summary>    
+    [ForeignKey(nameof(HospitalId))]
+    public Hospital.Hospital? Hospital { get; set; }
 }
