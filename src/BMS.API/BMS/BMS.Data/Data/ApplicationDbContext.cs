@@ -31,7 +31,7 @@ public class ApplicationDbContext : IdentityDbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        
+
         builder.Entity<Account>()
             .ToTable("Accounts")
             .HasIndex(a => a.UserName)
@@ -105,6 +105,3 @@ public class ApplicationDbContext : IdentityDbContext
             conf.Ignore(RelationalEventId.ForeignKeyPropertiesMappedToUnrelatedTables));
     }
 }
-
-
-// FIXME: ADD SIZES TO ALL STRINGS TYPES BECAUSE THEY ARE VARCHAR(450)

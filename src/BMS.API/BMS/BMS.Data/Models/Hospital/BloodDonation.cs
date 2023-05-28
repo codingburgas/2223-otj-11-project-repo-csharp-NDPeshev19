@@ -17,7 +17,8 @@ public class BloodDonation
     [Required]
     public string? Id { get; set; }
 
-    public BloodType? BloodType { get; set; }
+    [Required]
+    public int? BloodTypeId { get; set; }
 
     public string? DonorId { get; set; }
 
@@ -30,6 +31,9 @@ public class BloodDonation
     /// </summary>
     [Required]
     public int Amount { get; set; }
+
+    [ForeignKey(nameof(BloodTypeId))]
+    public BloodType? BloodType { get; set; }
 
     [ForeignKey(nameof(DonorId))]
     public Patient? Donor { get; set; }

@@ -213,10 +213,10 @@ namespace BMS.WebHost.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BornIn = table.Column<string>(type: "nvarchar(90)", maxLength: 90, nullable: false),
                     BornAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BloodTypeId = table.Column<int>(type: "int", nullable: true),
+                    BloodTypeId = table.Column<int>(type: "int", nullable: false),
                     IsTakingSpecialMedication = table.Column<bool>(type: "bit", nullable: false),
                     EmergencyNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    HospitalId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    HospitalId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -231,7 +231,8 @@ namespace BMS.WebHost.Migrations
                         name: "FK_Patients_BloodType_BloodTypeId",
                         column: x => x.BloodTypeId,
                         principalTable: "BloodType",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Patients_Hospitals_HospitalId",
                         column: x => x.HospitalId,
@@ -288,7 +289,7 @@ namespace BMS.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    BloodTypeId = table.Column<int>(type: "int", nullable: true),
+                    BloodTypeId = table.Column<int>(type: "int", nullable: false),
                     DonorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     RecipientId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     HospitalId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -301,7 +302,8 @@ namespace BMS.WebHost.Migrations
                         name: "FK_BloodDonations_BloodType_BloodTypeId",
                         column: x => x.BloodTypeId,
                         principalTable: "BloodType",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_BloodDonations_Hospitals_HospitalId",
                         column: x => x.HospitalId,

@@ -19,7 +19,7 @@ var connectionString = configuration.GetConnectionString("DefaultConnection") ??
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(connectionString, o =>
     {
-        o.MigrationsAssembly("BMS.WebHost");
+        o.MigrationsAssembly(typeof(Program).Assembly.FullName);
         o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
     }));
 
@@ -79,14 +79,12 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

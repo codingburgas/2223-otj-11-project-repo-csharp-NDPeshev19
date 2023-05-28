@@ -1,23 +1,25 @@
-﻿using BMS.Data.Models.Misc;
-
+﻿using BMS.Data.Models.Hospital;
+using BMS.Data.Models.Misc;
 using Microsoft.AspNetCore.Identity;
 
-using System.ComponentModel.DataAnnotations;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BMS.Data.Models.Auth;
+namespace BMS.Services.Models.Auth;
 
-/// <summary>
-/// Represents a patient <see cref="Account"/> in the identity system
-/// </summary>
-public class Patient : Account
+public class PatientIM : AccountIM
 {
     [Required]
     [MaxLength(90, ErrorMessage = "City name can't be more than 90 characters.")]
     [MinLength(3, ErrorMessage = "City name can't be less than 3 characters.")]
     [ProtectedPersonalData]
     public string? BornIn { get; set; }
-    
+
     [Required]
     [ProtectedPersonalData]
     public DateOnly BornAt { get; set; }
@@ -27,7 +29,7 @@ public class Patient : Account
 
     [Required]
     public bool IsTakingSpecialMedication { get; set; }
-    
+
     [MaxLength(15, ErrorMessage = "Phone number is too long.")]
     [MinLength(9, ErrorMessage = "Phone number is too short.")]
     [ProtectedPersonalData]
@@ -35,13 +37,4 @@ public class Patient : Account
 
     [Required]
     public string? HospitalId { get; set; }
-
-    [ForeignKey(nameof(BloodTypeId))]
-    public BloodType? BloodType { get; set; }
-
-    /// <summary>
-    /// Denotes the <see cref="Hospital"/> that the account belongs to.
-    /// </summary>    
-    [ForeignKey(nameof(HospitalId))]
-    public Hospital.Hospital? Hospital { get; set; }
 }
