@@ -1,16 +1,31 @@
-# 2223-10: On the job training (OTJ) project
+<div align = "center"> <h1 align="center">Blood donation management system</h1></div>
 
-## 1. Introduction
+# About 💻 
+This project aims to create a web application that allows users to manage blood donations and patients easier. The application has the following features:
 
-This is your personal repository for the OTJ project. **Do not create any projects until requested by your teacher!**
+ - Registration and login of users
+ - Management of patients
+ - Management of donations
+ - Tablical view of all the data
 
-## 2. Project definition & links
+# Installation ⚙ 
+You can start with downloading our project form GitHub by pressing the green clone button
 
-You're required to follow and implement the bare minimum of functionality as per your assignment. You're free to extend the project and add more features.
+OR
 
-[Assignment's README](https://github.com/codingburgas/2223-otj-11-project-definition)
+Pasting this line of code in your favourite ***Terminal***:
 
-The README will be updated frequently to reflect every stage of the project.
+```
+git clone --recursive https://github.com/codingburgas/2223-otj-11-project-repo-csharp-NDPeshev19.git
+```
+  
+Deployment 💻
+If you want to start the server, you need to paste the following lines in your favourite Terminal, while you are in the ***BMS.Server.WebHost*** folder:
+```
+dotnet restore
+dotnet run
+```
 
-
-**Note:** if you receive error 404, please ensure you're logged in GitHub. Be sure to clear stale credentials in Credential Manager (Windows). If you still receive 404, please contact your teacher.
+```
+Thank you for scrolling this far! Please consider giving the repo a star ⭐.
+```
