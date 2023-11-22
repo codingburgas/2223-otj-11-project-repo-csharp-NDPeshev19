@@ -1,13 +1,12 @@
-<div align = "center"> <h1 align="center">Blood donation management system</h1></div>
+<div align = "center"> <h1 align="center">Project Catalog Platform</h1></div>
 
 # About 💻 
-This project aims to create a web application that allows users to manage blood donations and patients easier. The application has the following features:
-
- - Registration and login of users
- - Management of patients
- - Management of donations
- - Tablical view of all the data
-
+This project aims to create a web platform that allows users to see and browse all of the projects that students at VSCPI have coded up during their years there. The application provides the following features:
+ - User management
+ - Content management
+ - Flexible api
+ - Responsive design
+ 
 # Installation ⚙ 
 You can start with downloading our project form GitHub by pressing the green clone button
 
