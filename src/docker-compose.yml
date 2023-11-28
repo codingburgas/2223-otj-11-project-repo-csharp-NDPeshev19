@@ -1,0 +1,28 @@
+services:
+  server:
+    env_file:
+      - .env
+    build: server
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    volumes:
+      - ./server:/code/
+      - /code/node_modules
+    depends_on:
+      - db
+    environment:
+      PORT: ${SERVER_PORT}
+
+  db:
+    image: postgres
+    volumes:
+      - data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=project-catalog
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+
+volumes:
+  data:
