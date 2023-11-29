@@ -1,15 +1,51 @@
-import { CollectionConfig } from 'payload/types'
+import { type CollectionConfig } from "payload/types";
+
+import { USERS_COLLECTION } from "../config/main";
+import { isAdmin } from "../auth/middleware";
 
 const Users: CollectionConfig = {
-  slug: 'users',
-  auth: true,
+  slug: USERS_COLLECTION,
+  auth: {
+    disableLocalStrategy: true,
+  },
   admin: {
-    useAsTitle: 'email',
+    useAsTitle: "email",
   },
   fields: [
-    // Email added by default
-    // Add more fields as needed
+    {
+      name: "fullName",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "firstName",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "email",
+      type: "email",
+      unique: true,
+      required: true,
+    },
+    {
+      name: "role",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "sub",
+      type: "text",
+      required: true,
+    },
   ],
-}
+  access: {
+    admin: isAdmin,
+    create: () => false,
+    delete: () => false,
+    read: isAdmin,
+    update: () => false,
+  },
+};
 
-export default Users
+export default Users;
