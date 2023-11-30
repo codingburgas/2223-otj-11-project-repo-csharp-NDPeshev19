@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffdd0385-6b87-4b9d-991f-bdbc8eb073a9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/src/collections/Users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/src/collections/Users.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/src/payload.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/src/payload.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/src/server.ts" afterDir="false" />
-    </list>
+    <list default="true" id="ffdd0385-6b87-4b9d-991f-bdbc8eb073a9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,6 +84,7 @@
       <option name="presentableId" value="Default" />
       <updated>1701160046476</updated>
       <workItem from="1701160047891" duration="6301000" />
+      <workItem from="1701245993629" duration="129000" />
     </task>
     <servers />
   </component>
