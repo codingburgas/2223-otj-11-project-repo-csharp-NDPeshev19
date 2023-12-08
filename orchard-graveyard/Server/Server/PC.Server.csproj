@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Modules\Manager\**" />
+    <Content Remove="Modules\Manager\**" />
+    <EmbeddedResource Remove="Modules\Manager\**" />
+    <None Remove="Modules\Manager\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.7.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Modules\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PC.Module.Manager\PC.Module.Manager.csproj" />
+  </ItemGroup>
+
+</Project>
