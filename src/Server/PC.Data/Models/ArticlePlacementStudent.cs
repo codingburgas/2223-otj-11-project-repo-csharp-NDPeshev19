@@ -5,7 +5,7 @@ namespace PC.Data.Models;
 public class ArticlePlacementStudent
 {
     public string? ArticleId { get; set; }
-
+    
     public string? PlacementId { get; set; }
 
     public string? StudentId { get; set; }

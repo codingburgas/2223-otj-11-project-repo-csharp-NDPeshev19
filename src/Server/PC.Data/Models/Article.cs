@@ -16,9 +16,9 @@ public class Article
 
     [Required]
     public string? Description { get; set; }
-
+    
     public string? CreatedById { get; set; }
-
+    
     public string? LastEditedById { get; set; }
 
     public List<ArticlePlacementStudent>? ArticlePlacementStudents { get; set; }
@@ -28,4 +28,6 @@ public class Article
     public User? LastEditedBy { get; set; }
 
     public List<Image>? Images { get; set; }
+
+    public List<Rating>? Ratings { get; set; }
 }

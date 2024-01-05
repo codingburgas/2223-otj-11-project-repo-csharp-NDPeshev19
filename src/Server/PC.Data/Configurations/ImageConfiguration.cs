@@ -3,12 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 using PC.Data.Models;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace PC.Data.Configurations;
 
 public class ImageConfiguration : IEntityTypeConfiguration<Image>

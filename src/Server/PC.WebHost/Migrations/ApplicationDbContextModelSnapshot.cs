@@ -101,7 +101,7 @@ namespace PC.WebHost.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("ArticlePlacementStudentConfigurations");
+                    b.ToTable("ArticlePlacementStudent");
                 });
 
             modelBuilder.Entity("PC.Data.Models.Image", b =>
@@ -134,6 +134,31 @@ namespace PC.WebHost.Migrations
                     b.HasKey("Title");
 
                     b.ToTable("Placements");
+                });
+
+            modelBuilder.Entity("PC.Data.Models.Rating", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ArticleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RatingValue")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("PC.Data.Models.Accounts.Student", b =>
@@ -200,11 +225,32 @@ namespace PC.WebHost.Migrations
                     b.Navigation("Article");
                 });
 
+            modelBuilder.Entity("PC.Data.Models.Rating", b =>
+                {
+                    b.HasOne("PC.Data.Models.Article", "Article")
+                        .WithMany("Ratings")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PC.Data.Models.Accounts.User", "User")
+                        .WithMany("Ratings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("PC.Data.Models.Article", b =>
                 {
                     b.Navigation("ArticlePlacementStudents");
 
                     b.Navigation("Images");
+
+                    b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("PC.Data.Models.Placement", b =>
@@ -222,6 +268,8 @@ namespace PC.WebHost.Migrations
                     b.Navigation("ArticlesCreated");
 
                     b.Navigation("ArticlesEdited");
+
+                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }

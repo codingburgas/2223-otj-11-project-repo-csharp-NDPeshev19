@@ -5,5 +5,7 @@ public class User : BaseAzureAccount
     public List<Article>? ArticlesCreated { get; set; }
 
     public List<Article>? ArticlesEdited { get; set; }
+
+    public List<Rating> Ratings { get; set; }
 }
 

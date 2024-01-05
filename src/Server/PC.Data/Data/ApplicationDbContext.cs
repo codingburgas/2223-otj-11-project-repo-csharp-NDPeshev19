@@ -19,7 +19,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Article> Articles { get; set; }
     public DbSet<Image> Images { get; set; }
     public DbSet<Placement> Placements { get; set; }
-    public DbSet<ArticlePlacementStudent> ArticlePlacementStudentConfigurations { get; set; }
+    public DbSet<ArticlePlacementStudent> ArticlePlacementStudent { get; set; }
+    public DbSet<Rating> Ratings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,5 +33,6 @@ public class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new ImageConfiguration());
         modelBuilder.ApplyConfiguration(new PlacementConfiguration());
         modelBuilder.ApplyConfiguration(new ArticlePlacementStudentConfiguration());
+        modelBuilder.ApplyConfiguration(new RatingConfiguration());
     }
 }
