@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Identity.Web;
 using PC.Data.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +12,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(
         o.MigrationsAssembly("PC.WebHost");
         o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
     }));
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("http://localhost:5173", "https://localhost:5173")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+    });
+});
+
+builder.Services.AddMicrosoftIdentityWebApiAuthentication(configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -28,7 +41,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
